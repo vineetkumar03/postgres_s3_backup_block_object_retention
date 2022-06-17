@@ -40,10 +40,11 @@ $ docker run -d
   -e POSTGRES_USER=postgres \
   -e CRON_SCHEDULE=@daily \
   -v /volm:/db_backup
-  chub.cloud.gov.in/library/retention:v01.10
-crond: crond (busybox 1.28.4) started, log level 8
+  vineetkumar03/postgres_backup_s3_block_object_retention:v01.10
+
 
 ```
+crond: crond (busybox 1.28.4) started, log level 8    
 
 `SCHEDULE`  can either be a cron five field format  `45 3 * * *`  (every day at 3:45am) or a predefined format (`@weekly`). 
 
