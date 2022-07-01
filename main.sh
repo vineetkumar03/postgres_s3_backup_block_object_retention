@@ -57,7 +57,7 @@ echo "host_bucket = ${S3_ENDPOINT}/${S3_BUCKET}/${S3_PREFIX}" >> "$S3CMD_CONFIG"
 echo "${CRON_SCHEDULE}  /bin/sh /s3/script.sh >> /var/log/cron.log" >> "$CRON_CONFIG"
 echo "${S3_CRON_SCHEDULE} /usr/bin/s3cmd sync --delete-removed /db_backup/ s3://${S3_BUCKET}/${S3_PREFIX}/ > /proc/1/fd/1" >> "$CRON_CONFIG"
 echo "DAYS_KEEP=${RETAIN_COUNT}" >> "$SCRIPT_CONFIG"
-echo "find /db_backup/* -mtime +$DAYS_KEEP -exec rm -rf {} \; 2> /dev/null" >> "$SCRIPT_CONFIG"
+echo "find /db_backup/* -mtime +${RETAIN_COUUNT} -exec rm -rf {} \; 2> /dev/null" >> "$SCRIPT_CONFIG"
 echo "PGPASSWORD=${POSTGRES_PASSWORD} pg_dump -h ${POSTGRES_HOST} -U ${POSTGRES_USER} -d ${POSTGRES_DATABASE} | gzip > /db_backup/${POSTGRES_DATABASE}_\$DATESTAMP.sql.gz" >> "$SCRIPT_CONFIG"
 sh /s3/script.sh
 crontab /etc/cron.d/bkp-cronjob 
